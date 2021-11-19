@@ -32,6 +32,10 @@ main {
     align-items: center;
 }
 
+.start p {
+    margin: 20px 100px;
+}
+
 .feedback {
     border-top: 2px solid grey;
 }
