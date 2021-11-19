@@ -26,11 +26,11 @@ main {
     align-items: center;
 }
 
-/* .questions {
+.start {
     display: flex;
     flex-direction: column;
     align-items: center;
-} */
+}
 
 .feedback {
     border-top: 2px solid grey;
