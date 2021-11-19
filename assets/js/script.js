@@ -28,14 +28,15 @@ function beginQuiz() {
     startQuizEl.textContent = "";
     // Start Timer
     timeStart();
-    //questionElCreator();
+    // create question elements
+    questionElCreator();
 
     
     // Call Question creator function
     // Call Question Elements creator
     // Call Element content addition
 }
-
+// function to start quiz timer
 function timeStart() {
     var timeLeft = 120;
     var timer = setInterval(function() {
@@ -47,8 +48,44 @@ function timeStart() {
     }, 1000);
 }
 
+// function to create question elements
+function questionElCreator() {
+    var questionEl = document.createElement("h2");
+    //randomNum();
+    questionEl.textContent = test[1].ask 
+    quizQuestionsEl.appendChild(questionEl);
 
+    var answerListEl = document.createElement("ol");
+    answerListEl.setAttribute("type", "A");
+    quizQuestionsEl.appendChild(answerListEl);
 
+    var answerEl = document.createElement("li");
+    answerEl.textContent = test[1].answer1
+    answerListEl.appendChild(answerEl);
+    var answerEl = document.createElement("li");
+    answerEl.textContent = test[1].answer2
+    answerListEl.appendChild(answerEl);
+    var answerEl = document.createElement("li");
+    answerEl.textContent = test[1].answer3
+    answerListEl.appendChild(answerEl);
+    var answerEl = document.createElement("li");
+    answerEl.textContent = test[1].answer4
+    answerListEl.appendChild(answerEl);
+}
+
+test = [
+    {
+        "ask": "question1",
+        "answer1": "answer1"
+    },
+    {
+        "ask": "question2",
+        "answer1": "answer1",
+        "answer2": "answer2",
+        "answer3": "answer3",
+        "answer4": "answer4"
+    }
+];
 // check button if/else:
 // if (button clicked) {
 //     run check answer function
