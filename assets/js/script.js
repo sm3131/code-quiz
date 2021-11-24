@@ -1,6 +1,5 @@
 // creating variables that target specific html elements
 var startQuizEl = document.querySelector(".start");
-// var questionsGroup = document.querySelector(".questions-div");
 var quizQuestionsEl = document.querySelector(".questions");
 var quizQuestionsListEl = document.querySelector(".questions-list");
 var accuracyEl = document.querySelector(".accuracy");
@@ -8,7 +7,24 @@ var finishQuizEl = document.querySelector(".finish");
 var highScoreEl = document.querySelector(".highscore");
 var timerEl = document.querySelector("#timer");
 
-startQuiz();
+var questions = [
+    {
+    "ask": "Question1",
+    "answer1": "Correct1",
+    "answer2": "Wrong2",
+    "answer3": "Wrong3",
+    "answer4": "Wrong4",
+    "correct": "Correct1"
+},
+{
+    "ask": "Question2",
+    "answer1": "Wrong1",
+    "answer2": "Correct2",
+    "answer3": "Wrong3",
+    "answer4": "Wrong4",
+    "correct": "Correct2"
+}
+];
 
 // initial start quiz element creation
 function startQuiz() {
@@ -27,6 +43,8 @@ function startQuiz() {
     startBtnEl.addEventListener("click", beginQuiz);
 }
 
+startQuiz();
+
 function beginQuiz() {
     startQuizEl.textContent = "";
     // Start Timer
@@ -34,10 +52,6 @@ function beginQuiz() {
     // create question elements
     questionElCreator();
 
-
-    // Call Question creator function
-    // Call Question Elements creator
-    // Call Element content addition
 }
 // function to start quiz timer
 function timeStart() {
@@ -55,179 +69,106 @@ function timeStart() {
 function questionElCreator() {
 
     questionEl = document.createElement("h2");
-    //questionEl.textContent = test[i].ask
-    quizQuestionsEl.appendChild(questionEl);
+    quizQuestionsListEl.appendChild(questionEl);
 
     answer1El = document.createElement("li");
-    //answer1El.textContent = test[i].answer1;
     answer1El.className = "ans1";
     quizQuestionsListEl.appendChild(answer1El);
 
     answer2El = document.createElement("li");
-    // answer2El.textContent = test[i].answer2;
     answer2El.className = "ans2";
     quizQuestionsListEl.appendChild(answer2El);
 
     answer3El = document.createElement("li");
-    //answer3El.textContent = test[i].answer3
     answer3El.className = "ans3";
     quizQuestionsListEl.appendChild(answer3El);
 
     answer4El = document.createElement("li");
-    //answer4El.textContent = test[i].answer4
     answer4El.className = "ans4";
     quizQuestionsListEl.appendChild(answer4El);
 
-    
+    indexCounter = 0;
     questionContentAddition();
 }
 
+function questionContentAddition() {
+    while (indexCounter < 2 && timeLeft > 0) {
 
-    function questionContentAddition() {
-    for (var i = 0; i < 2; i++) {
-        globalI = i;
-        if (timeLeft === 0) {
-            break;
-        } else {
-            questionEl.textContent = test[i].ask
-            answer1El.textContent = test[i].answer1;
-            answer2El.textContent = test[i].answer2;
-            answer3El.textContent = test[i].answer3;
-            answer4El.textContent = test[i].answer4;
-        }
-        
-        quizQuestionsListEl.addEventListener("click", function (event) {
-            // debugger;
-            targetEl = event.target;
-            if (targetEl.matches(".ans1")) {
-                checkAns1();
-            } else if (targetEl.matches(".ans2")) {
-                checkAns2();
-            } else if (targetEl.matches(".ans3")) {
-                checkAns3();
-            } else if (targetEl.matches(".ans4")) {
-                checkAns4();
-            }
-            quizQuestionsEl.textContent = "";
-            quizQuestionsListEl.textContent = "";
-        });
+    questionEl.textContent = questions[indexCounter].ask;
+    answer1El.textContent = questions[indexCounter].answer1;
+    answer2El.textContent = questions[indexCounter].answer2;
+    answer3El.textContent = questions[indexCounter].answer3;
+    answer4El.textContent = questions[indexCounter].answer4;
+
+    break;
     }
+    quizQuestionsListEl.addEventListener("click", answerSelector);
 };
 
 
+function answerSelector(event) {
+
+        ansTargetEl = event.target;
+        if (ansTargetEl.matches(".ans1")) {
+            checkAns1();
+        } else if (ansTargetEl.matches(".ans2")) {
+            checkAns2();
+        } else if (ansTargetEl.matches(".ans3")) {
+            checkAns3();
+        } else if (ansTargetEl.matches(".ans4")) {
+            checkAns4();
+        }
+        questionContentAddition();
+    };
+
 function checkAns1() {
-    quizQuestionsEl.textContent = "";
-    quizQuestionsListEl.textContent = "";
-    if (test[globalI].answer1 === test[globalI].correct) {
-        var correctEl = document.createElement("h3");
-        correctEl.textContent = "Correct!";
-        accuracyEl.appendChild(correctEl);
+    if (questions[indexCounter].answer1 === questions[indexCounter].correct) {
+        var feedbackEl = document.querySelector(".feedback");
+        feedbackEl.textContent = "Correct!";
         console.log("correct")
     } else {
-        var incorrectEl = document.createElement("h3");
-        incorrectEl.textContent = "Incorrect!";
-        accuracyEl.appendChild(incorrectEl);
+        var feedbackEl = document.querySelector(".feedback");
+        feedbackEl.textContent = "Incorrect!";
         console.log("incorrect")
     }
+    indexCounter++;
 }
 
 function checkAns2() {
-    if (test[globalI].answer2 === test[globalI].correct) {
-        var correctEl = document.createElement("h3");
-        correctEl.textContent = "Correct!";
-        accuracyEl.appendChild(correctEl);
+    if (questions[indexCounter].answer2 === questions[indexCounter].correct) {
+         var feedbackEl = document.querySelector(".feedback");
+        feedbackEl.textContent = "Correct!";
         console.log("correct")
     } else {
-        var incorrectEl = document.createElement("h3");
-        incorrectEl.textContent = "Incorrect!";
-        accuracyEl.appendChild(incorrectEl);
+        var feedbackEl = document.querySelector(".feedback");
+        feedbackEl.textContent = "Incorrect!";
         console.log("incorrect")
     }
+    indexCounter++;
 }
 
 function checkAns3() {
-    if (test[globalI].answer3 === test[globalI].correct) {
-        var correctEl = document.createElement("h3");
-        correctEl.textContent = "Correct!";
-        accuracyEl.appendChild(correctEl);
+    if (questions[indexCounter].answer3 === questions[indexCounter].correct) {
+         var feedbackEl = document.querySelector(".feedback");
+        feedbackEl.textContent = "Correct!";
         console.log("correct")
     } else {
-        var incorrectEl = document.createElement("h3");
-        incorrectEl.textContent = "Incorrect!";
-        accuracyEl.appendChild(incorrectEl);
+        var feedbackEl = document.querySelector(".feedback");
+        feedbackEl.textContent = "Incorrect!";
         console.log("incorrect")
     }
-}
+    indexCounter++;}
 
 function checkAns4() {
-    if (test[globalI].answer4 === test[globalI].correct) {
-        var correctEl = document.createElement("h3");
-        correctEl.textContent = "Correct!";
-        accuracyEl.appendChild(correctEl);
+    if (questions[indexCounter].answer4 === questions[indexCounter].correct) {
+         var feedbackEl = document.querySelector(".feedback");
+        feedbackEl.textContent = "Correct!";
         console.log("correct")
     } else {
-        var incorrectEl = document.createElement("h3");
-        incorrectEl.textContent = "Incorrect!";
-        accuracyEl.appendChild(incorrectEl);
+        var feedbackEl = document.querySelector(".feedback");
+        feedbackEl.textContent = "Incorrect!";
         console.log("incorrect")
     }
+    indexCounter++;
 }
 
-
-var test = [
-    {
-        "ask": "Question1",
-        "answer1": "Q1Answer1",
-        "answer2": "Q1Answer2",
-        "answer3": "Q1Answer3",
-        "answer4": "Q1Answer4",
-        "correct": "Q1Answer1"
-    },
-    {
-        "ask": "Question2",
-        "answer1": "Q2Answer1",
-        "answer2": "Q2Answer2",
-        "answer3": "Q2Answer3",
-        "answer4": "Q2Answer4",
-        "correct": "Q2Answer2"
-    }
-];
-
-
-// check button if/else:
-// if (button clicked) {
-//     run check answer function
-//     next question function
-// } else {
-//     check timer function
-//     If (timer <= 0) { run finish quiz function}
-//     else { run button listener function above}
-
-// Create Question Element Creator function
-/* <h2 class="ask">Question</h2>
-<ol type="A">
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-</ol>
-<h3 class="feedback">Correct</h3> */
-
-// Create Question Function
-
-
-// Create Finish Section Elements
-// <h3></h3>
-// <p></p>
-// <input>
-// <button></button> 
-
-// Finish Section Functions
-
-// Create HighScore Section Elements
-// <h3></h3>
-// <p></p>
-// <button></button>
-// <button></button> 
-
-//Create highscore storing function
