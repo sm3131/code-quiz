@@ -72,19 +72,19 @@ function questionElCreator() {
     quizQuestionsListEl.appendChild(questionEl);
 
     answer1El = document.createElement("li");
-    answer1El.className = "ans1";
+    answer1El.classList.add("ans1", "ans");
     quizQuestionsListEl.appendChild(answer1El);
 
     answer2El = document.createElement("li");
-    answer2El.className = "ans2";
+    answer2El.classList.add("ans2", "ans");
     quizQuestionsListEl.appendChild(answer2El);
 
     answer3El = document.createElement("li");
-    answer3El.className = "ans3";
+    answer3El.classList.add("ans3", "ans");
     quizQuestionsListEl.appendChild(answer3El);
 
     answer4El = document.createElement("li");
-    answer4El.className = "ans4";
+    answer4El.classList.add("ans4", "ans");
     quizQuestionsListEl.appendChild(answer4El);
 
     indexCounter = 0;
@@ -106,69 +106,111 @@ function questionContentAddition() {
 };
 
 
+// function answerSelector(event) {
+//     debugger;
+
+//         ansTargetEl = event.target;
+//         console.log(ansTargetEl);
+//         if (ansTargetEl.matches(".ans1")) {
+//             checkAns1();
+//         } else if (ansTargetEl.matches(".ans2")) {
+//             checkAns2();
+//         } else if (ansTargetEl.matches(".ans3")) {
+//             checkAns3();
+//         } else if (ansTargetEl.matches(".ans4")) {
+//             checkAns4();
+//         }
+//         questionContentAddition();
+//     };
+
 function answerSelector(event) {
+    ansTargetEl = event.target;
+    console.log(ansTargetEl);
+    if (ansTargetEl.matches(".ans")) {
+        checkAns();
+    }
+    questionContentAddition();
+}
 
-        ansTargetEl = event.target;
-        if (ansTargetEl.matches(".ans1")) {
-            checkAns1();
-        } else if (ansTargetEl.matches(".ans2")) {
-            checkAns2();
-        } else if (ansTargetEl.matches(".ans3")) {
-            checkAns3();
-        } else if (ansTargetEl.matches(".ans4")) {
-            checkAns4();
-        }
-        questionContentAddition();
-    };
+// function checkAns1() {
+//     if (questions[indexCounter].answer1 === questions[indexCounter].correct) {
+//         var feedbackEl = document.querySelector(".feedback");
+//         feedbackEl.textContent = "Correct!";
+//         console.log("correct")
+//     } else {
+//         var feedbackEl = document.querySelector(".feedback");
+//         feedbackEl.textContent = "Incorrect!";
+//         console.log("incorrect")
+//     }
+//     indexCounter++;
+// }
 
-function checkAns1() {
-    if (questions[indexCounter].answer1 === questions[indexCounter].correct) {
+// function checkAns2() {
+//     if (questions[indexCounter].answer2 === questions[indexCounter].correct) {
+//          var feedbackEl = document.querySelector(".feedback");
+//         feedbackEl.textContent = "Correct!";
+//         console.log("correct")
+//     } else {
+//         var feedbackEl = document.querySelector(".feedback");
+//         feedbackEl.textContent = "Incorrect!";
+//         console.log("incorrect")
+//     }
+//     indexCounter++;
+// }
+
+// function checkAns3() {
+//     if (questions[indexCounter].answer3 === questions[indexCounter].correct) {
+//          var feedbackEl = document.querySelector(".feedback");
+//         feedbackEl.textContent = "Correct!";
+//         console.log("correct")
+//     } else {
+//         var feedbackEl = document.querySelector(".feedback");
+//         feedbackEl.textContent = "Incorrect!";
+//         console.log("incorrect")
+//     }
+//     indexCounter++;}
+
+// function checkAns4() {
+//     if (questions[indexCounter].answer4 === questions[indexCounter].correct) {
+//          var feedbackEl = document.querySelector(".feedback");
+//         feedbackEl.textContent = "Correct!";
+//         console.log("correct")
+//     } else {
+//         var feedbackEl = document.querySelector(".feedback");
+//         feedbackEl.textContent = "Incorrect!";
+//         console.log("incorrect")
+//     }
+//     indexCounter++;
+// }
+
+// function checkAns() {
+//     if (questions[indexCounter].answer1 === questions[indexCounter].correct) {
+//         var feedbackEl = document.querySelector(".feedback");
+//         feedbackEl.textContent = "Correct!";
+//     } else if (questions[indexCounter].answer2 === questions[indexCounter].correct) {
+//         var feedbackEl = document.querySelector(".feedback");
+//         feedbackEl.textContent = "Correct!";
+//     } else if (questions[indexCounter].answer3 === questions[indexCounter].correct) {
+//         var feedbackEl = document.querySelector(".feedback");
+//         feedbackEl.textContent = "Correct!";
+//     } else if (questions[indexCounter].answer4 === questions[indexCounter].correct) {
+//         var feedbackEl = document.querySelector(".feedback");
+//         feedbackEl.textContent = "Correct!";
+//     } else {
+//         var feedbackEl = document.querySelector(".feedback");
+//         feedbackEl.textContent = "Incorrect!";
+//     }
+//     indexCounter++;
+// }
+
+
+function checkAns() {
+    if (ansTargetEl.textContent === questions[indexCounter].correct) {
         var feedbackEl = document.querySelector(".feedback");
         feedbackEl.textContent = "Correct!";
-        console.log("correct")
-    } else {
+     } else {
         var feedbackEl = document.querySelector(".feedback");
         feedbackEl.textContent = "Incorrect!";
-        console.log("incorrect")
     }
     indexCounter++;
 }
-
-function checkAns2() {
-    if (questions[indexCounter].answer2 === questions[indexCounter].correct) {
-         var feedbackEl = document.querySelector(".feedback");
-        feedbackEl.textContent = "Correct!";
-        console.log("correct")
-    } else {
-        var feedbackEl = document.querySelector(".feedback");
-        feedbackEl.textContent = "Incorrect!";
-        console.log("incorrect")
-    }
-    indexCounter++;
-}
-
-function checkAns3() {
-    if (questions[indexCounter].answer3 === questions[indexCounter].correct) {
-         var feedbackEl = document.querySelector(".feedback");
-        feedbackEl.textContent = "Correct!";
-        console.log("correct")
-    } else {
-        var feedbackEl = document.querySelector(".feedback");
-        feedbackEl.textContent = "Incorrect!";
-        console.log("incorrect")
-    }
-    indexCounter++;}
-
-function checkAns4() {
-    if (questions[indexCounter].answer4 === questions[indexCounter].correct) {
-         var feedbackEl = document.querySelector(".feedback");
-        feedbackEl.textContent = "Correct!";
-        console.log("correct")
-    } else {
-        var feedbackEl = document.querySelector(".feedback");
-        feedbackEl.textContent = "Incorrect!";
-        console.log("incorrect")
-    }
-    indexCounter++;
-}
-
