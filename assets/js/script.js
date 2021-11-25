@@ -7,6 +7,8 @@ var finishQuizEl = document.querySelector(".finish");
 var highScoreEl = document.querySelector(".highscore");
 var timerEl = document.querySelector("#timer");
 
+var totalScore = 0;
+
 var questions = [
     {
     "ask": "Question1",
@@ -51,6 +53,8 @@ function beginQuiz() {
     timeStart();
     // create question elements
     questionElCreator();
+    //add question content
+    questionContentAddition();
 
 }
 // function to start quiz timer
@@ -59,8 +63,9 @@ function timeStart() {
     var timer = setInterval(function () {
         timerEl.textContent = "Time: " + timeLeft;
         timeLeft--;
-        if (timeLeft === -1) {
+        if (timeLeft <= 0) {
             clearInterval(timer);
+            timerEl.textContent = "Time: 0";
             endQuiz();
         }
     }, 1000);
@@ -90,17 +95,12 @@ function questionElCreator() {
     quizQuestionsListEl.appendChild(answer4El);
 
     indexCounter = 0;
-    questionContentAddition();
 }
 
 // function to add content to the question elements
 function questionContentAddition() {
-    // debugger;
-    // if(checkTimer <= 0) {
-    //     endQuiz();
-    // };
-
     len = questions.length - 1
+
     while (indexCounter <= len && timeLeft > 0) {
 
     questionEl.textContent = questions[indexCounter].ask;
@@ -111,7 +111,10 @@ function questionContentAddition() {
 
     break;
     }
-
+    if(indexCounter > len) {
+        console.log("I got here");
+        endQuiz();
+    }
     quizQuestionsListEl.addEventListener("click", answerSelector);
     
 };
@@ -119,19 +122,24 @@ function questionContentAddition() {
 // function to target the answer option that was clicked
 function answerSelector(event) {
     ansTargetEl = event.target;
+    answerEl = ansTargetEl.textContent
+    console.log(answerEl);
     console.log(ansTargetEl);
-    if (ansTargetEl.matches(".ans")) {
-        checkAns();
-    }
+    checkAns();
+    // if (ansTargetEl.matches(".ans")) {
+    //     checkAns();
+    // }
     questionContentAddition();
 }
 
 // function to check if the answer is correct or incorrect
 function checkAns() {
-    if (ansTargetEl.textContent === questions[indexCounter].correct) {
-        var feedbackEl = document.querySelector(".feedback");
+    if (answerEl === questions[indexCounter].correct) {
+        var feedbackEl = document.createElement("h3");
         feedbackEl.className = "feedback-border"
         feedbackEl.textContent = "Correct!";
+        totalScore = totalScore + 1
+
      } else {
         var feedbackEl = document.querySelector(".feedback");
         feedbackEl.className = "feedback-border"
@@ -153,7 +161,7 @@ function endQuiz() {
     finishQuizEl.appendChild(endHeaderEl);
 
     finalScoreEl = document.createElement("p");
-    finalScoreEl.textContent = "Your final score is 10.";
+    finalScoreEl.textContent = "Your final score is " + totalScore + ".";
     finalScoreEl.className = "final-score";
     finishQuizEl.appendChild(finalScoreEl);
 
