@@ -1,3 +1,7 @@
+body{
+    background-color:gainsboro;
+}
+
 header {
     display: flex;
     justify-content: space-between;
@@ -6,7 +10,7 @@ header {
 }
 
 header h1{
-    color: purple;
+    color: blueviolet;
     align-items: center;
     padding-right:70px;
 }
@@ -14,11 +18,12 @@ header h1{
 header a {
     text-decoration: none;
     font-size: 20px;
+    color:cyan;
 }
 
 header p {
     font-size: 20px;
-    color:darkviolet;
+    color:cyan;
 }
 
 main {
@@ -33,9 +38,23 @@ main {
     align-items: center;
 }
 
+.start h2 {
+    color:blueviolet;
+}
+
 .start p {
     margin: 20px 100px;
     font-size: 16px;
+    color: blueviolet;
+}
+
+.startbtn {
+    height: 55px;
+    width: 160px;
+    font-size: 21px;
+    color:cyan;
+    background-color:darkviolet;
+    border-radius: 10px;
 }
 .questions-list {
     margin-right: 10px;
@@ -45,14 +64,26 @@ main {
     border: 2px solid blueviolet;
     border-radius: 9px;
     background-color:blueviolet;
-    color: aliceblue;
+    color: cyan;
     margin: 10px;
+}
+
+.ans:hover {
+    color:blueviolet;
+    background-color: cyan;
+    border-color:cyan;
+}
+
+.ans-heading {
+    color:blueviolet;
+    border-bottom: 2px solid cyan;
 }
 .ans::marker{
     color:black;
 }
 
-.feedback {
-    border-top: 2px solid grey;
+.feedback-border {
+    border-top: 2px solid cyan;
     padding-right: 200px;
+    color:blueviolet;
 }

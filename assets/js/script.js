@@ -69,6 +69,7 @@ function timeStart() {
 function questionElCreator() {
 
     questionEl = document.createElement("h2");
+    questionEl.className = "ans-heading";
     quizQuestionsListEl.appendChild(questionEl);
 
     answer1El = document.createElement("li");
@@ -93,7 +94,8 @@ function questionElCreator() {
 
 // function to add content to the question elements
 function questionContentAddition() {
-    while (indexCounter < 2 && timeLeft > 0) {
+    len = questions.length - 1
+    while (indexCounter < len && timeLeft > 0) {
 
     questionEl.textContent = questions[indexCounter].ask;
     answer1El.textContent = questions[indexCounter].answer1;
@@ -102,6 +104,9 @@ function questionContentAddition() {
     answer4El.textContent = questions[indexCounter].answer4;
 
     break;
+    }
+    if(timeLeft === 0 || indexCounter > len) {
+        endQuiz();
     }
     quizQuestionsListEl.addEventListener("click", answerSelector);
 };
@@ -121,9 +126,14 @@ function checkAns() {
     if (ansTargetEl.textContent === questions[indexCounter].correct) {
         var feedbackEl = document.querySelector(".feedback");
         feedbackEl.textContent = "Correct!";
+        feedbackEl.className = "feedback-border"
      } else {
         var feedbackEl = document.querySelector(".feedback");
         feedbackEl.textContent = "Incorrect!";
+        feedbackEl.className = "feedback-border"
+        timeLeft = timeLeft - 5;
     }
     indexCounter++;
 }
+
+
