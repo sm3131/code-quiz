@@ -26,7 +26,7 @@ var questions = [
 }
 ];
 
-// initial start quiz element creation
+// initial quiz start intro screen element creation
 function startQuiz() {
     var startH2El = document.createElement("h2");
     startH2El.textContent = "Code Quiz Challenge!";
@@ -91,6 +91,7 @@ function questionElCreator() {
     questionContentAddition();
 }
 
+// function to add content to the question elements
 function questionContentAddition() {
     while (indexCounter < 2 && timeLeft > 0) {
 
@@ -105,24 +106,7 @@ function questionContentAddition() {
     quizQuestionsListEl.addEventListener("click", answerSelector);
 };
 
-
-// function answerSelector(event) {
-//     debugger;
-
-//         ansTargetEl = event.target;
-//         console.log(ansTargetEl);
-//         if (ansTargetEl.matches(".ans1")) {
-//             checkAns1();
-//         } else if (ansTargetEl.matches(".ans2")) {
-//             checkAns2();
-//         } else if (ansTargetEl.matches(".ans3")) {
-//             checkAns3();
-//         } else if (ansTargetEl.matches(".ans4")) {
-//             checkAns4();
-//         }
-//         questionContentAddition();
-//     };
-
+// function to target the answer option that was clicked
 function answerSelector(event) {
     ansTargetEl = event.target;
     console.log(ansTargetEl);
@@ -132,78 +116,7 @@ function answerSelector(event) {
     questionContentAddition();
 }
 
-// function checkAns1() {
-//     if (questions[indexCounter].answer1 === questions[indexCounter].correct) {
-//         var feedbackEl = document.querySelector(".feedback");
-//         feedbackEl.textContent = "Correct!";
-//         console.log("correct")
-//     } else {
-//         var feedbackEl = document.querySelector(".feedback");
-//         feedbackEl.textContent = "Incorrect!";
-//         console.log("incorrect")
-//     }
-//     indexCounter++;
-// }
-
-// function checkAns2() {
-//     if (questions[indexCounter].answer2 === questions[indexCounter].correct) {
-//          var feedbackEl = document.querySelector(".feedback");
-//         feedbackEl.textContent = "Correct!";
-//         console.log("correct")
-//     } else {
-//         var feedbackEl = document.querySelector(".feedback");
-//         feedbackEl.textContent = "Incorrect!";
-//         console.log("incorrect")
-//     }
-//     indexCounter++;
-// }
-
-// function checkAns3() {
-//     if (questions[indexCounter].answer3 === questions[indexCounter].correct) {
-//          var feedbackEl = document.querySelector(".feedback");
-//         feedbackEl.textContent = "Correct!";
-//         console.log("correct")
-//     } else {
-//         var feedbackEl = document.querySelector(".feedback");
-//         feedbackEl.textContent = "Incorrect!";
-//         console.log("incorrect")
-//     }
-//     indexCounter++;}
-
-// function checkAns4() {
-//     if (questions[indexCounter].answer4 === questions[indexCounter].correct) {
-//          var feedbackEl = document.querySelector(".feedback");
-//         feedbackEl.textContent = "Correct!";
-//         console.log("correct")
-//     } else {
-//         var feedbackEl = document.querySelector(".feedback");
-//         feedbackEl.textContent = "Incorrect!";
-//         console.log("incorrect")
-//     }
-//     indexCounter++;
-// }
-
-// function checkAns() {
-//     if (questions[indexCounter].answer1 === questions[indexCounter].correct) {
-//         var feedbackEl = document.querySelector(".feedback");
-//         feedbackEl.textContent = "Correct!";
-//     } else if (questions[indexCounter].answer2 === questions[indexCounter].correct) {
-//         var feedbackEl = document.querySelector(".feedback");
-//         feedbackEl.textContent = "Correct!";
-//     } else if (questions[indexCounter].answer3 === questions[indexCounter].correct) {
-//         var feedbackEl = document.querySelector(".feedback");
-//         feedbackEl.textContent = "Correct!";
-//     } else if (questions[indexCounter].answer4 === questions[indexCounter].correct) {
-//         var feedbackEl = document.querySelector(".feedback");
-//         feedbackEl.textContent = "Correct!";
-//     } else {
-//         var feedbackEl = document.querySelector(".feedback");
-//         feedbackEl.textContent = "Incorrect!";
-//     }
-//     indexCounter++;
-// }
-
-
+// function to check if the answer is correct or incorrect
 function checkAns() {
     if (ansTargetEl.textContent === questions[indexCounter].correct) {
         var feedbackEl = document.querySelector(".feedback");

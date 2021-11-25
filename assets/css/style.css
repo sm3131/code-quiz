@@ -18,6 +18,7 @@ header a {
 
 header p {
     font-size: 20px;
+    color:darkviolet;
 }
 
 main {
@@ -36,7 +37,22 @@ main {
     margin: 20px 100px;
     font-size: 16px;
 }
+.questions-list {
+    margin-right: 10px;
+}
+.ans {
+    line-height: 2.5;
+    border: 2px solid blueviolet;
+    border-radius: 9px;
+    background-color:blueviolet;
+    color: aliceblue;
+    margin: 10px;
+}
+.ans::marker{
+    color:black;
+}
 
 .feedback {
     border-top: 2px solid grey;
+    padding-right: 200px;
 }
