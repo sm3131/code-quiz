@@ -55,12 +55,13 @@ function beginQuiz() {
 }
 // function to start quiz timer
 function timeStart() {
-    timeLeft = 120;
+    timeLeft = 5;
     var timer = setInterval(function () {
         timerEl.textContent = "Time: " + timeLeft;
         timeLeft--;
         if (timeLeft === -1) {
             clearInterval(timer);
+            endQuiz();
         }
     }, 1000);
 }
@@ -94,8 +95,13 @@ function questionElCreator() {
 
 // function to add content to the question elements
 function questionContentAddition() {
+    // debugger;
+    // if(checkTimer <= 0) {
+    //     endQuiz();
+    // };
+
     len = questions.length - 1
-    while (indexCounter < len && timeLeft > 0) {
+    while (indexCounter <= len && timeLeft > 0) {
 
     questionEl.textContent = questions[indexCounter].ask;
     answer1El.textContent = questions[indexCounter].answer1;
@@ -105,10 +111,9 @@ function questionContentAddition() {
 
     break;
     }
-    if(timeLeft === 0 || indexCounter > len) {
-        endQuiz();
-    }
+
     quizQuestionsListEl.addEventListener("click", answerSelector);
+    
 };
 
 // function to target the answer option that was clicked
@@ -125,15 +130,46 @@ function answerSelector(event) {
 function checkAns() {
     if (ansTargetEl.textContent === questions[indexCounter].correct) {
         var feedbackEl = document.querySelector(".feedback");
-        feedbackEl.textContent = "Correct!";
         feedbackEl.className = "feedback-border"
+        feedbackEl.textContent = "Correct!";
      } else {
         var feedbackEl = document.querySelector(".feedback");
-        feedbackEl.textContent = "Incorrect!";
         feedbackEl.className = "feedback-border"
+        feedbackEl.textContent = "Incorrect!";
         timeLeft = timeLeft - 5;
     }
     indexCounter++;
 }
 
+// function to end the quiz
 
+function endQuiz() {
+
+    quizQuestionsEl.textContent = "";
+    accuracyEl.textContent = "";
+    endHeaderEl = document.createElement("h2");
+    endHeaderEl.textContent = "All Done!";
+    endHeaderEl.className = "end-header";
+    finishQuizEl.appendChild(endHeaderEl);
+
+    finalScoreEl = document.createElement("p");
+    finalScoreEl.textContent = "Your final score is 10.";
+    finalScoreEl.className = "final-score";
+    finishQuizEl.appendChild(finalScoreEl);
+
+    initialsInputEl = document.createElement("input");
+    initialsInputEl.type = "text";
+    initialsInputEl.className = "initials";
+    finishQuizEl.appendChild(initialsInputEl);
+
+    initialsSubmitBtn = document.createElement("button");
+    initialsSubmitBtn.type = "submit";
+    initialsSubmitBtn.className = "submit-btn";
+    initialsSubmitBtn.textContent = "Submit"
+    finishQuizEl.appendChild(initialsSubmitBtn);
+
+    //All Done!
+    //Your final score is "score"
+    //Text type input for initials submit button
+
+}
