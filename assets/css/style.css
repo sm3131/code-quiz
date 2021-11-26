@@ -18,12 +18,12 @@ header h1{
 header a {
     text-decoration: none;
     font-size: 20px;
-    color:cyan;
+    color:blueviolet;
 }
 
 header p {
     font-size: 20px;
-    color:cyan;
+    color:blueviolet;
 }
 
 main {
@@ -39,7 +39,7 @@ main {
 }
 
 .start h2 {
-    color:blueviolet;
+    color:cyan;
 }
 
 .start p {
@@ -54,8 +54,17 @@ main {
     font-size: 21px;
     color:cyan;
     background-color:darkviolet;
+    border-color: blueviolet;
     border-radius: 10px;
+    font-family:monospace;
 }
+
+.startbtn:hover {
+    color:blueviolet;
+    background-color: cyan;
+    border-color: cyan;
+}
+
 .questions-list {
     margin-right: 10px;
 }
@@ -86,4 +95,92 @@ main {
     border-top: 2px solid cyan;
     padding-right: 200px;
     color:blueviolet;
+}
+
+.end-header {
+    color:blueviolet;
+}
+
+.final-score {
+    color:blueviolet;
+}
+
+.finish p {
+    color:blueviolet;
+}
+
+.submit-btn {
+    margin-left: 10px;
+        background-color:blueviolet;
+        color:cyan;
+        height:30px;
+        width:80px;
+        border-color:blueviolet;
+        border-radius:8px;
+        font-family:monospace;
+}
+
+.submit-btn:hover {
+    color:blueviolet;
+    background-color: cyan;
+    border-color:cyan;
+}
+
+.initials {
+    height: 23px;
+        background-color:cyan;
+        color:blueviolet;
+        border-color:black;
+}
+
+.hs-head {
+    color:blueviolet;
+}
+
+.hs-final {
+    background-color:cyan;
+    color:blueviolet;
+    font-size: 18px;
+    height: 30px;
+    width: 120px;
+    padding-top: 11px;
+    padding-left: 5px;
+    border-radius:5px;
+    border-color:cyan;
+}
+
+.highscore-btns {
+    margin-top: 15px;
+}
+
+.go-back-btn {
+    margin-right: 4px;
+    background-color: blueviolet;
+    border: blueviolet;
+    border-radius: 8px;
+    height: 40px;
+    width: 100px;
+    color: cyan;
+    font-size: 16px;
+    font-family:monospace;
+}
+
+.go-back-btn:hover {
+    color: blueviolet;
+    background-color: cyan;
+}
+.clear-scores-btn {
+    background-color: blueviolet;
+    border: blueviolet;
+    border-radius: 8px;
+    height: 40px;
+    width: 180px;
+    color: cyan;
+    font-size: 16px;
+    font-family:monospace;
+}
+
+.clear-scores-btn:hover {
+    color: blueviolet;
+    background-color: cyan;
 }

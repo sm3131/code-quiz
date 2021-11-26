@@ -5,6 +5,7 @@ var quizQuestionsListEl = document.querySelector(".questions-list");
 var accuracyEl = document.querySelector(".accuracy");
 var finishQuizEl = document.querySelector(".finish");
 var highScoreEl = document.querySelector(".highscore");
+var highScoreBtns = document.querySelector(".highscore-btns");
 var timerEl = document.querySelector("#timer");
 
 var totalScore = 0;
@@ -157,6 +158,7 @@ function endQuiz() {
 
     quizQuestionsEl.textContent = "";
     accuracyEl.textContent = "";
+
     endHeaderEl = document.createElement("h2");
     endHeaderEl.textContent = "All Done!";
     endHeaderEl.className = "end-header";
@@ -191,14 +193,16 @@ function endQuiz() {
 // save score to local storage
 
 function saveScore () {
+
     var initials = initialsInputEl.value
     console.log(initials);
 
     finalScore = Number(localStorage.getItem("score"));
+    finalInitials = localStorage.getItem("initials");
 
-    if (totalScore > finalScore) {
+    if (totalScore >= finalScore) {
     localStorage.setItem("initials", initials);
-    localStorage.setItem("score", JSON.stringify(totalScore));
+    localStorage.setItem("score", totalScore);
     }
 
     showHighScore();
@@ -209,29 +213,37 @@ function showHighScore() {
     finishQuizEl.textContent = "";
     initialsSectionEl.textContent = "";
 
+    finalScoreHS = Number(localStorage.getItem("score"));
+    finalInitialsHS = localStorage.getItem("initials");
+
     highScoreHeadingEl = document.createElement("h2");
     highScoreHeadingEl.textContent = "High Score:";
     highScoreHeadingEl.className = "hs-head";
     highScoreEl.appendChild(highScoreHeadingEl);
 
-    highScoreInputEl = document.createElement("input");
-    highScoreInputEl.type = "text";
-    highScoreInputEl.value = ""
-    highScoreInputEl.className = "hs-input";
+    highScoreInputEl = document.createElement("p");
+    highScoreInputEl.textContent = finalInitialsHS + ": " + finalScoreHS;
+    highScoreInputEl.className = "hs-final";
     highScoreEl.appendChild(highScoreInputEl);
 
     goBackBtn = document.createElement("button");
     goBackBtn.textContent = "Go Back";
     goBackBtn.className = "go-back-btn";
-    highScoreEl.appendChild(goBackBtn);
+    highScoreBtns.appendChild(goBackBtn);
 
     clearHighScoresBtn = document.createElement("button");
-    clearHighScoresBtn.textContent = "Clear High Scores";
+    clearHighScoresBtn.textContent = "Clear High Score";
     clearHighScoresBtn.className = "clear-scores-btn";
-    highScoreEl.appendChild(clearHighScoresBtn);
+    highScoreBtns.appendChild(clearHighScoresBtn);
 
     //heading with highscore
     // input field with info from local storage
     //go back button
     // clear high score button
 }
+
+//clear high scores function attached to clear button
+
+//go back to start screen function when click go back button
+
+// view high scores when click the upper left link
