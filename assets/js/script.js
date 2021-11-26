@@ -36,13 +36,14 @@ function startQuiz() {
     startQuizEl.appendChild(startH2El);
 
     var startPEl = document.createElement("p");
-    startPEl.textContent = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus voluptate quia repudiandae nostrum quae sequi dolorum sunt. Ratione, dolorem, a doloribus ipsum quam quos nemo et incidunt nesciunt eveniet aperiam?";
+    startPEl.innerHTML = "Welcome to the code quiz challenge! The rules for this quiz are simple, you will have 5 minutes to answer 10 multiple choice questions about the javascript programming language. If you answer a question correct you will earn one point, if you answer a question incorrectly, 5 seconds will be subtracted from your time. The quiz will end when you either finish answering every question or when your time runs out. <br><br> At the end of the quiz you will be prompted to enter your initials and submit your score. Once you have done that, the final section of the quiz will display the initials and score of the person who has the current high score. From this final section you can either return to the start of the quiz by pressing the 'Go Back' button, or you can clear the high score by pressing the 'Clear High Score' button.<br><br> Challenge yourself and your friends to get the highest score you can on the quiz. You can retake the quiz as many times as you would like in order to try and get the highest score possible! You will not be provided with the question answers after you finish the quiz, so use your knowledge and resources to find the correct answers. Press the 'Start Quiz' button to begin the quiz, your time will start right away. Good Luck!";
     startQuizEl.appendChild(startPEl);
 
     var startBtnEl = document.createElement("button");
     startBtnEl.className = "startbtn";
     startBtnEl.textContent = "Start Quiz";
     startQuizEl.appendChild(startBtnEl);
+
     startBtnEl.addEventListener("click", beginQuiz);
 }
 
@@ -65,7 +66,7 @@ function timeStart() {
     var timer = setInterval(function () {
         timerEl.textContent = "Time: " + timeLeft;
         timeLeft--;
-        if (timeLeft <= 0) {
+        if (timeLeft <= -1) {
             clearInterval(timer);
             timerEl.textContent = "Time: 0";
             endQuiz();
@@ -114,7 +115,7 @@ function questionContentAddition() {
     break;
     }
     if(indexCounter > len) {
-        timeLeft = 0;
+        timeLeft = -1;
     }
     quizQuestionsListEl.addEventListener("click", answerSelector);
     
@@ -194,6 +195,7 @@ function endQuiz() {
 
 function saveScore () {
 
+    //Make sure can't submit until user enters some text in initials box!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     var initials = initialsInputEl.value
     console.log(initials);
 
@@ -230,20 +232,19 @@ function showHighScore() {
     goBackBtn.textContent = "Go Back";
     goBackBtn.className = "go-back-btn";
     highScoreBtns.appendChild(goBackBtn);
+    goBackBtn.addEventListener("click", reloadQuiz);
 
     clearHighScoresBtn = document.createElement("button");
     clearHighScoresBtn.textContent = "Clear High Score";
     clearHighScoresBtn.className = "clear-scores-btn";
     highScoreBtns.appendChild(clearHighScoresBtn);
-
-    //heading with highscore
-    // input field with info from local storage
-    //go back button
-    // clear high score button
+    clearHighScoresBtn.addEventListener("click", function(){
+        highScoreInputEl.textContent = "";
+    })
 }
 
-//clear high scores function attached to clear button
-
-//go back to start screen function when click go back button
+function reloadQuiz() {
+    location.reload();
+}
 
 // view high scores when click the upper left link
