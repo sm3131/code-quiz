@@ -28,7 +28,7 @@ var questions = [
 }
 ];
 
-// initial quiz start intro screen element creation
+// initial quiz start intro screen elements creation
 function startQuiz() {
     var startH2El = document.createElement("h2");
     startH2El.textContent = "Code Quiz Challenge!";
@@ -45,6 +45,7 @@ function startQuiz() {
     startBtnEl.addEventListener("click", beginQuiz);
 }
 
+// Begin code quiz
 startQuiz();
 
 function beginQuiz() {
@@ -59,7 +60,7 @@ function beginQuiz() {
 }
 // function to start quiz timer
 function timeStart() {
-    timeLeft = 5;
+    timeLeft = 10;
     var timer = setInterval(function () {
         timerEl.textContent = "Time: " + timeLeft;
         timeLeft--;
@@ -112,8 +113,7 @@ function questionContentAddition() {
     break;
     }
     if(indexCounter > len) {
-        console.log("I got here");
-        endQuiz();
+        timeLeft = 0;
     }
     quizQuestionsListEl.addEventListener("click", answerSelector);
     
@@ -126,24 +126,26 @@ function answerSelector(event) {
     console.log(answerEl);
     console.log(ansTargetEl);
     checkAns();
-    // if (ansTargetEl.matches(".ans")) {
-    //     checkAns();
-    // }
+    
     questionContentAddition();
 }
 
 // function to check if the answer is correct or incorrect
 function checkAns() {
     if (answerEl === questions[indexCounter].correct) {
+        accuracyEl.textContent = "";
         var feedbackEl = document.createElement("h3");
         feedbackEl.className = "feedback-border"
         feedbackEl.textContent = "Correct!";
+        accuracyEl.appendChild(feedbackEl);
         totalScore = totalScore + 1
 
      } else {
-        var feedbackEl = document.querySelector(".feedback");
+        accuracyEl.textContent = "";
+        var feedbackEl = document.createElement("h3");
         feedbackEl.className = "feedback-border"
         feedbackEl.textContent = "Incorrect!";
+        accuracyEl.appendChild(feedbackEl);
         timeLeft = timeLeft - 5;
     }
     indexCounter++;
@@ -165,19 +167,41 @@ function endQuiz() {
     finalScoreEl.className = "final-score";
     finishQuizEl.appendChild(finalScoreEl);
 
+    initialsSectionEl = document.createElement("div");
+    finishQuizEl.appendChild(initialsSectionEl);
+    initialsPromptEl = document.createElement("p");
+    initialsPromptEl.textContent = "Please enter your initials:";
+    initialsSectionEl.appendChild(initialsPromptEl);
     initialsInputEl = document.createElement("input");
     initialsInputEl.type = "text";
+    initialsInputEl.name = "name"
     initialsInputEl.className = "initials";
-    finishQuizEl.appendChild(initialsInputEl);
+    initialsSectionEl.appendChild(initialsInputEl);
 
     initialsSubmitBtn = document.createElement("button");
     initialsSubmitBtn.type = "submit";
     initialsSubmitBtn.className = "submit-btn";
     initialsSubmitBtn.textContent = "Submit"
-    finishQuizEl.appendChild(initialsSubmitBtn);
+    initialsSectionEl.appendChild(initialsSubmitBtn);
 
+    initialsSubmitBtn.addEventListener("click", saveScore);
     //All Done!
     //Your final score is "score"
     //Text type input for initials submit button
 
+}
+
+// save score to local storage
+
+function saveScore () {
+    var initials = initialsInputEl.value
+    console.log(initials);
+    localStorage.setItem("initials", JSON.stringify(initials))
+    localStorage.setItem("score", JSON.stringify(totalScore));
+
+    showHighScore();
+}
+
+function showHighScore() {
+    
 }
