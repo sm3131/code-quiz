@@ -185,9 +185,6 @@ function endQuiz() {
     initialsSectionEl.appendChild(initialsSubmitBtn);
 
     initialsSubmitBtn.addEventListener("click", saveScore);
-    //All Done!
-    //Your final score is "score"
-    //Text type input for initials submit button
 
 }
 
@@ -196,12 +193,45 @@ function endQuiz() {
 function saveScore () {
     var initials = initialsInputEl.value
     console.log(initials);
-    localStorage.setItem("initials", JSON.stringify(initials))
+
+    finalScore = Number(localStorage.getItem("score"));
+
+    if (totalScore > finalScore) {
+    localStorage.setItem("initials", initials);
     localStorage.setItem("score", JSON.stringify(totalScore));
+    }
 
     showHighScore();
 }
 
 function showHighScore() {
-    
+
+    finishQuizEl.textContent = "";
+    initialsSectionEl.textContent = "";
+
+    highScoreHeadingEl = document.createElement("h2");
+    highScoreHeadingEl.textContent = "High Score:";
+    highScoreHeadingEl.className = "hs-head";
+    highScoreEl.appendChild(highScoreHeadingEl);
+
+    highScoreInputEl = document.createElement("input");
+    highScoreInputEl.type = "text";
+    highScoreInputEl.value = ""
+    highScoreInputEl.className = "hs-input";
+    highScoreEl.appendChild(highScoreInputEl);
+
+    goBackBtn = document.createElement("button");
+    goBackBtn.textContent = "Go Back";
+    goBackBtn.className = "go-back-btn";
+    highScoreEl.appendChild(goBackBtn);
+
+    clearHighScoresBtn = document.createElement("button");
+    clearHighScoresBtn.textContent = "Clear High Scores";
+    clearHighScoresBtn.className = "clear-scores-btn";
+    highScoreEl.appendChild(clearHighScoresBtn);
+
+    //heading with highscore
+    // input field with info from local storage
+    //go back button
+    // clear high score button
 }
