@@ -10,25 +10,7 @@ var timerEl = document.querySelector("#timer");
 var viewHighScoreEl = document.querySelector(".view-hs");
 var totalScore = 0;
 
-// var questions = [
-//     {
-//         "ask": "Question1",
-//         "answer1": "Correct1",
-//         "answer2": "Wrong2",
-//         "answer3": "Wrong3",
-//         "answer4": "Wrong4",
-//         "correct": "Correct1"
-//     },
-//     {
-//         "ask": "Question2",
-//         "answer1": "Wrong1",
-//         "answer2": "Correct2",
-//         "answer3": "Wrong3",
-//         "answer4": "Wrong4",
-//         "correct": "Correct2"
-//     }
-// ];
-
+// quiz questions array of objects
 var questions = [
     {
         "ask": "What does the console.log() method do?",
@@ -52,7 +34,7 @@ var questions = [
         "answer2": "var car = {make: Subaru, model: Crosstrek, year: 2021, color: blue};",
         "answer3": "var car = [make: Subaru, model: Crosstrek, year: 2021, color: blue];",
         "answer4": "var car = {'make': 'Subaru', 'model': 'Crosstrek', 'year': '2021', 'color': 'blue'};",
-        "correct": ""
+        "correct": "var car = {'make': 'Subaru', 'model': 'Crosstrek', 'year': '2021', 'color': 'blue'};"
     },
     {
         "ask": "What is the correct way to write a JavaScript array?",
@@ -87,7 +69,7 @@ var questions = [
         "correct": "myFunction();"
     },
     {
-        "ask": "Which of the following correctly selects an element from the DOM using its class name",
+        "ask": "Which of the following correctly selects an element from the DOM using its class name?",
         "answer1": "document.querySelector(#myElement)",
         "answer2": "document.querySelector('myElement')",
         "answer3": "document.querySelector('.myElement')",
@@ -95,7 +77,7 @@ var questions = [
         "correct": "document.querySelector('.myElement')"
     },
     {
-        "ask": "When will myFunction occur based on the following code: element.addEventListener('click', myFunction)",
+        "ask": "When will myFunction occur based on the following code: element.addEventListener('click', myFunction);",
         "answer1": "Right when the program loads",
         "answer2": "When the user clicks on the element",
         "answer3": "When myFunction is called",
@@ -112,26 +94,13 @@ var questions = [
     },
 ]
 
-// // highscores array 
-
+// highscores array for storing in local storage
 var highScoresArr = [];
 
-
-
-
-// // create highscore information object 
-
-// var highScoreInfo = {
-//     initials: 
-//     finalScore:
-// }
-
-// view highscores link click event
-
+// view highscores link click event   ////////FIXXXXXXXXXXXXXX//////////
 viewHighScoreEl.addEventListener("click", function () {
     alert("CLICKED!!!");
 });
-
 
 // initial quiz start intro screen elements creation
 function startQuiz() {
@@ -140,7 +109,7 @@ function startQuiz() {
     startQuizEl.appendChild(startH2El);
 
     var startPEl = document.createElement("p");
-    startPEl.innerHTML = "Welcome to the code quiz challenge! The rules for this quiz are simple, you will have 5 minutes to answer 10 multiple choice questions about the javascript programming language. If you answer a question correct you will earn one point, if you answer a question incorrectly, 5 seconds will be subtracted from your time. The quiz will end when you either finish answering every question or when your time runs out. <br><br> At the end of the quiz you will be prompted to enter your initials and submit your score. Once you have done that, the final section of the quiz will display the initials and score of the person who has the current high score. From this final section you can either return to the start of the quiz by pressing the 'Go Back' button, or you can clear the high score by pressing the 'Clear High Score' button.<br><br> Challenge yourself and your friends to get the highest score you can on the quiz. You can retake the quiz as many times as you would like in order to try and get the highest score possible! You will not be provided with the question answers after you finish the quiz, so use your knowledge and resources to find the correct answers. Press the 'Start Quiz' button to begin the quiz, your time will start right away. Good Luck!";
+    startPEl.innerHTML = "Welcome to the code quiz challenge! The rules for this quiz are simple, you will have 4 minutes to answer 10 multiple choice questions about the javascript programming language. If you answer a question correct you will earn one point, if you answer a question incorrectly, 5 seconds will be subtracted from your time. The quiz will end when you either finish answering every question or when your time runs out. <br><br> At the end of the quiz you will be prompted to enter your initials and submit your score. Once you have done that, the final section of the quiz will display the initials and score of the person who has the current high score. From this final section you can either return to the start of the quiz by pressing the 'Play Again' button, or you can clear all high scores by pressing the 'Clear High Scores' button.<br><br> Challenge yourself and your friends to get the highest score you can on the quiz. You can retake the quiz as many times as you would like in order to try and get the highest score possible! You will not be provided with the question answers after you finish the quiz, so use your knowledge and resources to find the correct answers. Press the 'Start Quiz' button to begin the quiz, your time will start right away. Good Luck!";
     startQuizEl.appendChild(startPEl);
 
     var startBtnEl = document.createElement("button");
@@ -151,12 +120,12 @@ function startQuiz() {
 
     loadHighScores();
 
-    //load highscores
+    //load highscores from local storage
     function loadHighScores() {
         var savedScores = localStorage.getItem("highscores");
         console.log(savedScores);
 
-        if(!savedScores) {
+        if (!savedScores) {
             return false;
         }
         savedScores = JSON.parse(savedScores);
@@ -165,7 +134,7 @@ function startQuiz() {
 
         highScoresArr = savedScores;
         console.log(highScoresArr);
-    
+
     }
 
     startBtnEl.addEventListener("click", beginQuiz);
@@ -182,9 +151,9 @@ function beginQuiz() {
     questionElCreator();
     //add question content
     questionContentAddition();
-
 }
-// function to start quiz timer
+
+// function to start and clear quiz timer
 function timeStart() {
     timeLeft = 200;
     var timer = setInterval(function () {
@@ -316,7 +285,7 @@ function endQuiz() {
 }
 
 function checkInitials() {
-    if(!(initialsInputEl.value.length >= 1 && initialsInputEl.value.length <= 3)) {
+    if (!(initialsInputEl.value.length >= 1 && initialsInputEl.value.length <= 3)) {
         alert("Please enter an initial length between 1 and 3 characters");
         finishQuizEl.textContent = "";
         initialsSectionEl.textContent = "";
@@ -327,67 +296,46 @@ function checkInitials() {
 }
 
 // save score to local storage
-
 function saveScore() {
 
     // create highscore information object 
-
     var highScoreInfo = {
         "initials": initialsInputEl.value,
         "finalScore": totalScore
     };
 
+    // add highscore object info to the highscores array
     highScoresArr.push(highScoreInfo);
     console.log(highScoresArr);
 
+    //store scores in local storage
     localStorage.setItem("highscores", JSON.stringify(highScoresArr));
-
-    //Make sure can't submit until user enters some text in initials box!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // var initials = initialsInputEl.value
-    // console.log(initials);
-
-    // finalScore = Number(localStorage.getItem("score"));
-    // finalInitials = localStorage.getItem("initials");
-
-    // if (totalScore >= finalScore) {
-    //     localStorage.setItem("initials", initials);
-    //     localStorage.setItem("score", totalScore);
-    // }
 
     showHighScore();
 }
 
+// function to acquire and display highest score on the final page of the quiz
 function showHighScore() {
 
     finishQuizEl.textContent = "";
     initialsSectionEl.textContent = "";
 
-    // finalScoreHS = Number(localStorage.getItem("score"));
-    // finalInitialsHS = localStorage.getItem("initials");
-
-
     var savedScores = localStorage.getItem("highscores");
     console.log(savedScores);
 
-    if(!savedScores) {
+    if (!savedScores) {
         return false;
     }
     savedScores = JSON.parse(savedScores);
     console.log(savedScores);
     console.log(savedScores[1]);
-   
+
     allScores = [];
     highest = -1;
     for (var i = 0; i < savedScores.length; i++) {
         console.log(savedScores[i]);
         allScores.push(savedScores[i].finalScore);
         console.log(allScores);
-        // highestScore = Math.max(savedScores[i].finalScore);
-        // console.log(highestScore);
-
-        //highestScore = Math.max(savedScores[i].finalScore);
-
-        // for loop go through new number array compare to variable highest (define as 0 outside first) then add indexID and value to replace highest and then can display initials and score with that indexID from the original array
 
         if (allScores[i] > highest) {
             highestScoreId = i;
@@ -398,15 +346,12 @@ function showHighScore() {
 
     }
 
-    //     displayHighest(savedScores[i]);
-
     highScoreHeadingEl = document.createElement("h2");
     highScoreHeadingEl.textContent = "High Score:";
     highScoreHeadingEl.className = "hs-head";
     highScoreEl.appendChild(highScoreHeadingEl);
 
     highScoreInputEl = document.createElement("p");
-    //highScoreInputEl.textContent = finalInitialsHS + ": " + finalScoreHS;
     highScoreInputEl.textContent = displayInitials + ": " + displayScore;
     highScoreInputEl.className = "hs-final";
     highScoreEl.appendChild(highScoreInputEl);
@@ -427,16 +372,7 @@ function showHighScore() {
     })
 }
 
-// function displayHighest (savedScores) {
-
-//     highestScore = Math.max(savedScores.finalScore);
-//     console.log(highestScore);
-// }
-//     return {
-
-//     }
-// }
-
+// function to reload quiz when play again button is clicked
 function reloadQuiz() {
     location.reload();
 }
@@ -444,12 +380,13 @@ function reloadQuiz() {
 
 ////////TO-DOS/////////////////
 
-// FIX WHEN ADD SAME INITIALS BUT LOWER CASE IS ACCEPTS THAT ALSO SOMEONE WITH SAME INITIALS BUT DIFFERENT SCORE CHECK THAT Do want person to replace highscore if got same highscore??? if not change that or add multiples???
-
-// Add quiz questions (10)
+// Make all initials display uppercase even if entered lowercase
 
 // view high scores when click the upper left link
 
-// Final styling
+// Final styling:
+// make correct and incorrect change colors or be more noticeable question to question
+// change font sizes of questions
+// make sure semi responsive
 
 // Add README.md

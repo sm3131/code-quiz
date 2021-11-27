@@ -73,6 +73,7 @@ main {
 
 .questions-list {
     margin-right: 10px;
+    width: 550px;
 }
 .ans {
     line-height: 2.5;
@@ -80,7 +81,10 @@ main {
     border-radius: 9px;
     background-color:blueviolet;
     color: cyan;
+    font-size: 18px;
     margin: 10px;
+    width:fit-content;
+    padding: 0px 10px;
 }
 
 .ans:hover {
@@ -94,36 +98,43 @@ main {
     border-bottom: 2px solid cyan;
 }
 .ans::marker{
-    color:black;
+    color:blueviolet;
+    font-weight: bold;
 }
 
 .feedback-border {
     border-top: 2px solid cyan;
-    padding-right: 200px;
+    width: 550px;
     color:blueviolet;
+    font-size: 22px;
+    margin-left: 20px;
 }
 
 .end-header {
     color:blueviolet;
+    font-size: 30px;
 }
 
 .final-score {
     color:blueviolet;
+    font-size: 20px;
 }
 
 .finish p {
     color:blueviolet;
+    font-size: 20px;
 }
 
 .submit-btn {
     margin-left: 10px;
         background-color:blueviolet;
         color:cyan;
-        height:30px;
-        width:80px;
+        height:35px;
+        width:95px;
         border-color:blueviolet;
         border-radius:8px;
         font-family:monospace;
+        font-size: 16px;
 }
 
 .submit-btn:hover {
@@ -133,10 +144,10 @@ main {
 }
 
 .initials {
-    height: 23px;
-        background-color:cyan;
-        color:blueviolet;
-        border-color:black;
+    height: 30px;
+    background-color:cyan;
+    color:blueviolet;
+    border-color:black;
 }
 
 .hs-head {
