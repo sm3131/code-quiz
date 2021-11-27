@@ -7,27 +7,48 @@ var finishQuizEl = document.querySelector(".finish");
 var highScoreEl = document.querySelector(".highscore");
 var highScoreBtns = document.querySelector(".highscore-btns");
 var timerEl = document.querySelector("#timer");
-
+var viewHighScoreEl = document.querySelector(".view-hs");
 var totalScore = 0;
 
 var questions = [
     {
-    "ask": "Question1",
-    "answer1": "Correct1",
-    "answer2": "Wrong2",
-    "answer3": "Wrong3",
-    "answer4": "Wrong4",
-    "correct": "Correct1"
-},
-{
-    "ask": "Question2",
-    "answer1": "Wrong1",
-    "answer2": "Correct2",
-    "answer3": "Wrong3",
-    "answer4": "Wrong4",
-    "correct": "Correct2"
-}
+        "ask": "Question1",
+        "answer1": "Correct1",
+        "answer2": "Wrong2",
+        "answer3": "Wrong3",
+        "answer4": "Wrong4",
+        "correct": "Correct1"
+    },
+    {
+        "ask": "Question2",
+        "answer1": "Wrong1",
+        "answer2": "Correct2",
+        "answer3": "Wrong3",
+        "answer4": "Wrong4",
+        "correct": "Correct2"
+    }
 ];
+
+// // highscores array 
+
+var highScoresArr = [];
+
+
+
+
+// // create highscore information object 
+
+// var highScoreInfo = {
+//     initials: 
+//     finalScore:
+// }
+
+// view highscores link click event
+
+viewHighScoreEl.addEventListener("click", function () {
+    alert("CLICKED!!!");
+});
+
 
 // initial quiz start intro screen elements creation
 function startQuiz() {
@@ -43,6 +64,26 @@ function startQuiz() {
     startBtnEl.className = "startbtn";
     startBtnEl.textContent = "Start Quiz";
     startQuizEl.appendChild(startBtnEl);
+
+
+    loadHighScores();
+
+    //load highscores
+    function loadHighScores() {
+        var savedScores = localStorage.getItem("highscores");
+        console.log(savedScores);
+
+        if(!savedScores) {
+            return false;
+        }
+        savedScores = JSON.parse(savedScores);
+        console.log(savedScores);
+
+
+        highScoresArr = savedScores;
+        console.log(highScoresArr);
+    
+    }
 
     startBtnEl.addEventListener("click", beginQuiz);
 }
@@ -106,19 +147,19 @@ function questionContentAddition() {
 
     while (indexCounter <= len && timeLeft > 0) {
 
-    questionEl.textContent = questions[indexCounter].ask;
-    answer1El.textContent = questions[indexCounter].answer1;
-    answer2El.textContent = questions[indexCounter].answer2;
-    answer3El.textContent = questions[indexCounter].answer3;
-    answer4El.textContent = questions[indexCounter].answer4;
+        questionEl.textContent = questions[indexCounter].ask;
+        answer1El.textContent = questions[indexCounter].answer1;
+        answer2El.textContent = questions[indexCounter].answer2;
+        answer3El.textContent = questions[indexCounter].answer3;
+        answer4El.textContent = questions[indexCounter].answer4;
 
-    break;
+        break;
     }
-    if(indexCounter > len) {
+    if (indexCounter > len) {
         timeLeft = -1;
     }
     quizQuestionsListEl.addEventListener("click", answerSelector);
-    
+
 };
 
 // function to target the answer option that was clicked
@@ -128,7 +169,7 @@ function answerSelector(event) {
     console.log(answerEl);
     console.log(ansTargetEl);
     checkAns();
-    
+
     questionContentAddition();
 }
 
@@ -142,7 +183,7 @@ function checkAns() {
         accuracyEl.appendChild(feedbackEl);
         totalScore = totalScore + 1
 
-     } else {
+    } else {
         accuracyEl.textContent = "";
         var feedbackEl = document.createElement("h3");
         feedbackEl.className = "feedback-border"
@@ -188,24 +229,41 @@ function endQuiz() {
     initialsSectionEl.appendChild(initialsSubmitBtn);
 
     initialsSubmitBtn.addEventListener("click", saveScore);
+    if(initialsInputEl.value<= 0 && initialsInputEl.value>= 3) {
+        alert("Please enter an initial length between 1 and 3 characters");
+        endQuiz();
+    }
 
 }
 
+
 // save score to local storage
 
-function saveScore () {
+function saveScore() {
+
+    // create highscore information object 
+
+    var highScoreInfo = {
+        "initials": initialsInputEl.value,
+        "finalScore": totalScore
+    };
+
+    highScoresArr.push(highScoreInfo);
+    console.log(highScoresArr);
+
+    localStorage.setItem("highscores", JSON.stringify(highScoresArr));
 
     //Make sure can't submit until user enters some text in initials box!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    var initials = initialsInputEl.value
-    console.log(initials);
+    // var initials = initialsInputEl.value
+    // console.log(initials);
 
-    finalScore = Number(localStorage.getItem("score"));
-    finalInitials = localStorage.getItem("initials");
+    // finalScore = Number(localStorage.getItem("score"));
+    // finalInitials = localStorage.getItem("initials");
 
-    if (totalScore >= finalScore) {
-    localStorage.setItem("initials", initials);
-    localStorage.setItem("score", totalScore);
-    }
+    // if (totalScore >= finalScore) {
+    //     localStorage.setItem("initials", initials);
+    //     localStorage.setItem("score", totalScore);
+    // }
 
     showHighScore();
 }
@@ -215,8 +273,43 @@ function showHighScore() {
     finishQuizEl.textContent = "";
     initialsSectionEl.textContent = "";
 
-    finalScoreHS = Number(localStorage.getItem("score"));
-    finalInitialsHS = localStorage.getItem("initials");
+    // finalScoreHS = Number(localStorage.getItem("score"));
+    // finalInitialsHS = localStorage.getItem("initials");
+
+
+    var savedScores = localStorage.getItem("highscores");
+    console.log(savedScores);
+
+    if(!savedScores) {
+        return false;
+    }
+    savedScores = JSON.parse(savedScores);
+    console.log(savedScores);
+    console.log(savedScores[1]);
+   
+    allScores = [];
+    highest = -1;
+    for (var i = 0; i < savedScores.length; i++) {
+        console.log(savedScores[i]);
+        allScores.push(savedScores[i].finalScore);
+        console.log(allScores);
+        // highestScore = Math.max(savedScores[i].finalScore);
+        // console.log(highestScore);
+
+        //highestScore = Math.max(savedScores[i].finalScore);
+
+        // for loop go through new number array compare to variable highest (define as 0 outside first) then add indexID and value to replace highest and then can display initials and score with that indexID from the original array
+
+        if (allScores[i] > highest) {
+            highestScoreId = i;
+            highest = allScores[i];
+            displayInitials = savedScores[highestScoreId].initials;
+            displayScore = savedScores[highestScoreId].finalScore;
+        }
+
+    }
+
+    //     displayHighest(savedScores[i]);
 
     highScoreHeadingEl = document.createElement("h2");
     highScoreHeadingEl.textContent = "High Score:";
@@ -224,27 +317,50 @@ function showHighScore() {
     highScoreEl.appendChild(highScoreHeadingEl);
 
     highScoreInputEl = document.createElement("p");
-    highScoreInputEl.textContent = finalInitialsHS + ": " + finalScoreHS;
+    //highScoreInputEl.textContent = finalInitialsHS + ": " + finalScoreHS;
+    highScoreInputEl.textContent = displayInitials + ": " + displayScore;
     highScoreInputEl.className = "hs-final";
     highScoreEl.appendChild(highScoreInputEl);
 
     goBackBtn = document.createElement("button");
-    goBackBtn.textContent = "Go Back";
+    goBackBtn.textContent = "Play Again";
     goBackBtn.className = "go-back-btn";
     highScoreBtns.appendChild(goBackBtn);
     goBackBtn.addEventListener("click", reloadQuiz);
 
     clearHighScoresBtn = document.createElement("button");
-    clearHighScoresBtn.textContent = "Clear High Score";
+    clearHighScoresBtn.textContent = "Clear High Scores";
     clearHighScoresBtn.className = "clear-scores-btn";
     highScoreBtns.appendChild(clearHighScoresBtn);
-    clearHighScoresBtn.addEventListener("click", function(){
+    clearHighScoresBtn.addEventListener("click", function () {
         highScoreInputEl.textContent = "";
+        localStorage.clear();
     })
 }
+
+// function displayHighest (savedScores) {
+
+//     highestScore = Math.max(savedScores.finalScore);
+//     console.log(highestScore);
+// }
+//     return {
+
+//     }
+// }
 
 function reloadQuiz() {
     location.reload();
 }
 
+
+////////TO-DOS/////////////////
+
+// FIX WHEN ADD SAME INITIALS BUT LOWER CASE IS ACCEPTS THAT ALSO SOMEONE WITH SAME INITIALS BUT DIFFERENT SCORE CHECK THAT Do want person to replace highscore if got same highscore??? if not change that or add multiples???
+
+// Add quiz questions (10)
+
 // view high scores when click the upper left link
+
+// Final styling
+
+// Add README.md

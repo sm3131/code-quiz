@@ -50,7 +50,7 @@ main {
 
 .start p {
     margin: 20px 100px;
-    font-size: 16px;
+    font-size: 18px;
     color: blueviolet;
 }
 
@@ -165,7 +165,7 @@ main {
     border: blueviolet;
     border-radius: 8px;
     height: 40px;
-    width: 100px;
+    width: 140px;
     color: cyan;
     font-size: 16px;
     font-family:monospace;
