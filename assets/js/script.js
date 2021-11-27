@@ -10,24 +10,107 @@ var timerEl = document.querySelector("#timer");
 var viewHighScoreEl = document.querySelector(".view-hs");
 var totalScore = 0;
 
+// var questions = [
+//     {
+//         "ask": "Question1",
+//         "answer1": "Correct1",
+//         "answer2": "Wrong2",
+//         "answer3": "Wrong3",
+//         "answer4": "Wrong4",
+//         "correct": "Correct1"
+//     },
+//     {
+//         "ask": "Question2",
+//         "answer1": "Wrong1",
+//         "answer2": "Correct2",
+//         "answer3": "Wrong3",
+//         "answer4": "Wrong4",
+//         "correct": "Correct2"
+//     }
+// ];
+
 var questions = [
     {
-        "ask": "Question1",
-        "answer1": "Correct1",
-        "answer2": "Wrong2",
-        "answer3": "Wrong3",
-        "answer4": "Wrong4",
-        "correct": "Correct1"
+        "ask": "What does the console.log() method do?",
+        "answer1": "Outputs a message in a window prompt",
+        "answer2": "Outputs a message in an alert box",
+        "answer3": "Outputs a message to the web console",
+        "answer4": "Locally stores objects",
+        "correct": "Outputs a message to the web console"
     },
     {
-        "ask": "Question2",
-        "answer1": "Wrong1",
-        "answer2": "Correct2",
-        "answer3": "Wrong3",
-        "answer4": "Wrong4",
-        "correct": "Correct2"
-    }
-];
+        "ask": "What would the following variable evaluate to: var x = 10 + 5 + “number”;?",
+        "answer1": "105number",
+        "answer2": "15number",
+        "answer3": "number15",
+        "answer4": "number105",
+        "correct": "15number"
+    },
+    {
+        "ask": "Which of the following correctly creates an object?",
+        "answer1": "var car = {'make': 'Subaru'; 'model': 'Crosstrek'; 'year': '2021'; 'color': 'blue'};",
+        "answer2": "var car = {make: Subaru, model: Crosstrek, year: 2021, color: blue};",
+        "answer3": "var car = [make: Subaru, model: Crosstrek, year: 2021, color: blue];",
+        "answer4": "var car = {'make': 'Subaru', 'model': 'Crosstrek', 'year': '2021', 'color': 'blue'};",
+        "correct": ""
+    },
+    {
+        "ask": "What is the correct way to write a JavaScript array?",
+        "answer1": "var colors = ['red', 'green', 'blue']",
+        "answer2": "var colors = (1:'red', 2:'green', 3:'blue')",
+        "answer3": "var colors = 1 = ('red'), 2 = ('green'), 3 = ('blue')",
+        "answer4": "var colors = 'red', 'green', 'blue'",
+        "correct": "var colors = ['red', 'green', 'blue']"
+    },
+    {
+        "ask": "What is the correct JavaScript syntax to change the content of the following HTML element? <p id='demo'>This is a  demonstration.</p>",
+        "answer1": "document.getElement('p').innerHTML = 'Hello World!';",
+        "answer2": "document.getElementById('demo').innerHTML = 'Hello World!';",
+        "answer3": "#demo.innerHTML = 'Hello World!';",
+        "answer4": "document.getElementByName('p').innerHTML = 'Hello World!';",
+        "correct": "document.getElementById('demo').innerHTML = 'Hello World!';"
+    },
+    {
+        "ask": "From the given array which index is the letter ‘C’ on? [‘A’, ‘B’, ‘C’, ‘D’]",
+        "answer1": "3",
+        "answer2": "0",
+        "answer3": "2",
+        "answer4": "1",
+        "correct": "2"
+    },
+    {
+        "ask": "How do you call a function in Javascript?",
+        "answer1": "call myFunction ();",
+        "answer2": "myFunction {}",
+        "answer3": "function myFunction()",
+        "answer4": "myFunction();",
+        "correct": "myFunction();"
+    },
+    {
+        "ask": "Which of the following correctly selects an element from the DOM using its class name",
+        "answer1": "document.querySelector(#myElement)",
+        "answer2": "document.querySelector('myElement')",
+        "answer3": "document.querySelector('.myElement')",
+        "answer4": "document.querySelector('#myElement;)",
+        "correct": "document.querySelector('.myElement')"
+    },
+    {
+        "ask": "When will myFunction occur based on the following code: element.addEventListener('click', myFunction)",
+        "answer1": "Right when the program loads",
+        "answer2": "When the user clicks on the element",
+        "answer3": "When myFunction is called",
+        "answer4": "When the user double clicks on the element",
+        "correct": "When the user clicks on the element"
+    },
+    {
+        "ask": "What does the appendChild() method accomplish?",
+        "answer1": "appends a parent element to a child element",
+        "answer2": "appends an element/node as the last child of a parent node",
+        "answer3": "appends two child elements/nodes together",
+        "answer4": "appends an element/node as the first child of a parent node",
+        "correct": "appends an element/node as the last child of a parent node"
+    },
+]
 
 // // highscores array 
 
@@ -103,7 +186,7 @@ function beginQuiz() {
 }
 // function to start quiz timer
 function timeStart() {
-    timeLeft = 10;
+    timeLeft = 200;
     var timer = setInterval(function () {
         timerEl.textContent = "Time: " + timeLeft;
         timeLeft--;
@@ -228,14 +311,20 @@ function endQuiz() {
     initialsSubmitBtn.textContent = "Submit"
     initialsSectionEl.appendChild(initialsSubmitBtn);
 
-    initialsSubmitBtn.addEventListener("click", saveScore);
-    if(initialsInputEl.value<= 0 && initialsInputEl.value>= 3) {
-        alert("Please enter an initial length between 1 and 3 characters");
-        endQuiz();
-    }
+    initialsSubmitBtn.addEventListener("click", checkInitials);
 
 }
 
+function checkInitials() {
+    if(!(initialsInputEl.value.length >= 1 && initialsInputEl.value.length <= 3)) {
+        alert("Please enter an initial length between 1 and 3 characters");
+        finishQuizEl.textContent = "";
+        initialsSectionEl.textContent = "";
+        endQuiz();
+    } else {
+        saveScore();
+    }
+}
 
 // save score to local storage
 
