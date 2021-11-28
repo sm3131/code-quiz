@@ -8,7 +8,7 @@ var highScoreEl = document.querySelector(".highscore");
 var highScoreBtns = document.querySelector(".highscore-btns");
 var timerEl = document.querySelector("#timer");
 var viewHighScoreEl = document.querySelector(".score-click");
-var topBtnEl = document.querySelector(".btn-top-score");
+var topScoreEl = document.querySelector(".top-score");
 var totalScore = 0;
 
 // quiz questions array of objects
@@ -120,7 +120,8 @@ function displayTop() {
             displayTopScore = topScores[highestTopScoreId].finalScore;
         }
     }
-    topBtnEl.textContent = displayTopInitials + ": " + displayTopScore;
+    topScoreEl.className = "top-1"
+    topScoreEl.textContent = displayTopInitials + ": " + displayTopScore;
 };
 
 // initial quiz start intro screen elements creation
@@ -144,18 +145,13 @@ function startQuiz() {
     //load highscores from local storage
     function loadHighScores() {
         var savedScores = localStorage.getItem("highscores");
-        console.log(savedScores);
 
         if (!savedScores) {
             return false;
         }
         savedScores = JSON.parse(savedScores);
-        console.log(savedScores);
-
 
         highScoresArr = savedScores;
-        console.log(highScoresArr);
-
     }
     startBtnEl.addEventListener("click", beginQuiz);
 }
@@ -240,8 +236,6 @@ function answerSelector(event) {
     if(event.target.matches(".ans")) {
         ansTargetEl = event.target;
         answerEl = ansTargetEl.textContent
-        console.log(answerEl);
-        console.log(ansTargetEl);
         checkAns();
     }
     
@@ -329,7 +323,6 @@ function saveScore() {
 
     // add highscore object info to the highscores array
     highScoresArr.push(highScoreInfo);
-    console.log(highScoresArr);
 
     // store scores in local storage
     localStorage.setItem("highscores", JSON.stringify(highScoresArr));
@@ -344,21 +337,16 @@ function showHighScore() {
     initialsSectionEl.textContent = "";
 
     var savedScores = localStorage.getItem("highscores");
-    console.log(savedScores);
 
     if (!savedScores) {
         return false;
     }
     savedScores = JSON.parse(savedScores);
-    console.log(savedScores);
-    console.log(savedScores[1]);
 
     allScores = [];
     highest = -1;
     for (var i = 0; i < savedScores.length; i++) {
-        console.log(savedScores[i]);
         allScores.push(savedScores[i].finalScore);
-        console.log(allScores);
 
         if (allScores[i] > highest) {
             highestScoreId = i;

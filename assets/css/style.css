@@ -16,16 +16,20 @@ header h1{
 }
 
 .score-click {
-    font-size: 20px;
+    font-size: 18px;
     color:blueviolet;
     background-color: cyan;
+    border-radius: 7px;
 }
 
-.btn-top-score {
-    font-size: 20px;
+.top-1 {
+    font-size: 18px;
     color:blueviolet;
     background-color: cyan;
     display:inline;
+    border-radius: 7px;
+    padding: 0.5px;
+    border:2px solid blueviolet;
 }
 
 header p {
@@ -37,6 +41,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .start {
