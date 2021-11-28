@@ -7,7 +7,8 @@ var finishQuizEl = document.querySelector(".finish");
 var highScoreEl = document.querySelector(".highscore");
 var highScoreBtns = document.querySelector(".highscore-btns");
 var timerEl = document.querySelector("#timer");
-var viewHighScoreEl = document.querySelector(".view-hs");
+var viewHighScoreEl = document.querySelector(".score-click");
+var topBtnEl = document.querySelector(".btn-top-score");
 var totalScore = 0;
 
 // quiz questions array of objects
@@ -97,10 +98,30 @@ var questions = [
 // highscores array for storing in local storage
 var highScoresArr = [];
 
-// view highscores link click event   ////////FIXXXXXXXXXXXXXX//////////
-viewHighScoreEl.addEventListener("click", function () {
-    alert("CLICKED!!!");
-});
+viewHighScoreEl.addEventListener("click", displayTop);
+
+function displayTop() {
+    
+    topScores = localStorage.getItem("highscores");
+    if(!topScores) {
+        return false;
+    } else {
+    topScores = JSON.parse(topScores);
+    }
+    allTopScores = [];
+    highest = -1;
+    for (var i = 0; i < topScores.length; i++) {
+        allTopScores.push(topScores[i].finalScore);
+
+        if (allTopScores[i] > highest) {
+            highestTopScoreId = i;
+            highest = allTopScores[i];
+            displayTopInitials = topScores[highestTopScoreId].initials;
+            displayTopScore = topScores[highestTopScoreId].finalScore;
+        }
+    }
+    topBtnEl.textContent = displayTopInitials + ": " + displayTopScore;
+};
 
 // initial quiz start intro screen elements creation
 function startQuiz() {
@@ -109,7 +130,7 @@ function startQuiz() {
     startQuizEl.appendChild(startH2El);
 
     var startPEl = document.createElement("p");
-    startPEl.innerHTML = "Welcome to the code quiz challenge! The rules for this quiz are simple, you will have 4 minutes to answer 10 multiple choice questions about the javascript programming language. If you answer a question correct you will earn one point, if you answer a question incorrectly, 5 seconds will be subtracted from your time. The quiz will end when you either finish answering every question or when your time runs out. <br><br> At the end of the quiz you will be prompted to enter your initials and submit your score. Once you have done that, the final section of the quiz will display the initials and score of the person who has the current high score. From this final section you can either return to the start of the quiz by pressing the 'Play Again' button, or you can clear all high scores by pressing the 'Clear High Scores' button.<br><br> Challenge yourself and your friends to get the highest score you can on the quiz. You can retake the quiz as many times as you would like in order to try and get the highest score possible! You will not be provided with the question answers after you finish the quiz, so use your knowledge and resources to find the correct answers. Press the 'Start Quiz' button to begin the quiz, your time will start right away. Good Luck!";
+    startPEl.innerHTML = "Welcome to the code quiz challenge! The rules for this quiz are simple, you will have 2 minutes to answer 10 multiple choice questions about the javascript programming language. If you answer a question correct you will earn one point, if you answer a question incorrectly, 5 seconds will be subtracted from your time. The quiz will end when you either finish answering every question or when your time runs out. <br><br> At the end of the quiz you will be prompted to enter your initials and submit your score. Once you have done that, the final section of the quiz will display the initials and score of the person who has the current high score. From this final section you can either return to the start of the quiz by pressing the 'Play Again' button, or you can clear all high scores by pressing the 'Clear High Scores' button.<br><br> Challenge yourself and your friends to get the highest score you can on the quiz. You can retake the quiz as many times as you would like in order to try and get the highest score possible! You will not be provided with the question answers after you finish the quiz, so use your knowledge and resources to find the correct answers. Press the 'Start Quiz' button to begin the quiz, your time will start right away. Good Luck!";
     startQuizEl.appendChild(startPEl);
 
     var startBtnEl = document.createElement("button");
@@ -136,7 +157,6 @@ function startQuiz() {
         console.log(highScoresArr);
 
     }
-
     startBtnEl.addEventListener("click", beginQuiz);
 }
 
@@ -151,11 +171,13 @@ function beginQuiz() {
     questionElCreator();
     //add question content
     questionContentAddition();
+    //listening for click event on question answers list
+    quizQuestionsListEl.addEventListener("click", answerSelector);
 }
 
 // function to start and clear quiz timer
 function timeStart() {
-    timeLeft = 200;
+    timeLeft = 120;
     var timer = setInterval(function () {
         timerEl.textContent = "Time: " + timeLeft;
         timeLeft--;
@@ -210,18 +232,19 @@ function questionContentAddition() {
     if (indexCounter > len) {
         timeLeft = -1;
     }
-    quizQuestionsListEl.addEventListener("click", answerSelector);
-
 };
 
 // function to target the answer option that was clicked
 function answerSelector(event) {
-    ansTargetEl = event.target;
-    answerEl = ansTargetEl.textContent
-    console.log(answerEl);
-    console.log(ansTargetEl);
-    checkAns();
-
+    
+    if(event.target.matches(".ans")) {
+        ansTargetEl = event.target;
+        answerEl = ansTargetEl.textContent
+        console.log(answerEl);
+        console.log(ansTargetEl);
+        checkAns();
+    }
+    
     questionContentAddition();
 }
 
@@ -247,7 +270,6 @@ function checkAns() {
 }
 
 // function to end the quiz
-
 function endQuiz() {
 
     quizQuestionsEl.textContent = "";
@@ -280,8 +302,8 @@ function endQuiz() {
     initialsSubmitBtn.textContent = "Submit"
     initialsSectionEl.appendChild(initialsSubmitBtn);
 
-    initialsSubmitBtn.addEventListener("click", checkInitials);
 
+    initialsSubmitBtn.addEventListener("click", checkInitials);
 }
 
 function checkInitials() {
@@ -294,6 +316,7 @@ function checkInitials() {
         saveScore();
     }
 }
+
 
 // save score to local storage
 function saveScore() {
@@ -308,7 +331,7 @@ function saveScore() {
     highScoresArr.push(highScoreInfo);
     console.log(highScoresArr);
 
-    //store scores in local storage
+    // store scores in local storage
     localStorage.setItem("highscores", JSON.stringify(highScoresArr));
 
     showHighScore();
@@ -343,9 +366,9 @@ function showHighScore() {
             displayInitials = savedScores[highestScoreId].initials;
             displayScore = savedScores[highestScoreId].finalScore;
         }
-
     }
 
+    // creating final section of quiz to display high score and create buttons to play again and clear scores
     highScoreHeadingEl = document.createElement("h2");
     highScoreHeadingEl.textContent = "High Score:";
     highScoreHeadingEl.className = "hs-head";
@@ -358,7 +381,7 @@ function showHighScore() {
 
     goBackBtn = document.createElement("button");
     goBackBtn.textContent = "Play Again";
-    goBackBtn.className = "go-back-btn";
+    goBackBtn.className = "play-again-btn";
     highScoreBtns.appendChild(goBackBtn);
     goBackBtn.addEventListener("click", reloadQuiz);
 
@@ -376,6 +399,7 @@ function showHighScore() {
 function reloadQuiz() {
     location.reload();
 }
+
 
 
 ////////TO-DOS/////////////////

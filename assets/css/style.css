@@ -15,10 +15,17 @@ header h1{
     padding-right:70px;
 }
 
-header a {
-    text-decoration: none;
+.score-click {
     font-size: 20px;
     color:blueviolet;
+    background-color: cyan;
+}
+
+.btn-top-score {
+    font-size: 20px;
+    color:blueviolet;
+    background-color: cyan;
+    display:inline;
 }
 
 header p {
@@ -170,7 +177,7 @@ main {
     margin-top: 15px;
 }
 
-.go-back-btn {
+.play-again-btn {
     margin-right: 4px;
     background-color: blueviolet;
     border: blueviolet;
@@ -182,7 +189,7 @@ main {
     font-family:monospace;
 }
 
-.go-back-btn:hover {
+.play-again-btn:hover {
     color: blueviolet;
     background-color: cyan;
 }
