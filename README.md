@@ -10,6 +10,7 @@ The Code Quiz Challenge is a program powered by Javascript that allows users to 
 - [Code-Access](#code-access)
 - [Preview](#preview)
 - [Functionality](#functionality)
+- [Link-to-Code-Quiz](#link-to-code-quiz)
 - [Credit](#credit)
 
 # Built With
@@ -44,6 +45,7 @@ The code quiz is set-up as follows:
 
 Below is a link to access the code quiz program:
 
+https://sm3131.github.io/code-quiz/
 
 # Credit
 
