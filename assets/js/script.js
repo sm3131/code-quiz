@@ -131,7 +131,7 @@ function startQuiz() {
     startQuizEl.appendChild(startH2El);
 
     var startPEl = document.createElement("p");
-    startPEl.innerHTML = "Welcome to the code quiz challenge! The rules for this quiz are simple, you will have 2 minutes to answer 10 multiple choice questions about the javascript programming language. If you answer a question correct you will earn one point, if you answer a question incorrectly, 5 seconds will be subtracted from your time. The quiz will end when you either finish answering every question or when your time runs out. <br><br> At the end of the quiz you will be prompted to enter your initials and submit your score. Once you have done that, the final section of the quiz will display the initials and score of the person who has the current high score. From this final section you can either return to the start of the quiz by pressing the 'Play Again' button, or you can clear all high scores by pressing the 'Clear High Scores' button.<br><br> Challenge yourself and your friends to get the highest score you can on the quiz. You can retake the quiz as many times as you would like in order to try and get the highest score possible! You will not be provided with the question answers after you finish the quiz, so use your knowledge and resources to find the correct answers. Press the 'Start Quiz' button to begin the quiz, your time will start right away. Good Luck!";
+    startPEl.innerHTML = "Welcome to the code quiz challenge! The rules for this quiz are simple, you will have 3 minutes to answer 10 multiple choice questions about the javascript programming language. If you answer a question correct you will earn one point, if you answer a question incorrectly, 5 seconds will be subtracted from your time. The quiz will end when you either finish answering every question or when your time runs out. <br><br> At the end of the quiz you will be prompted to enter your initials and submit your score. Once you have done that, the final section of the quiz will display the initials and score of the person who has the current high score. From this final section you can either return to the start of the quiz by pressing the 'Play Again' button, or you can clear all high scores by pressing the 'Clear High Scores' button.<br><br> Challenge yourself and your friends to get the highest score you can on the quiz. You can retake the quiz as many times as you would like in order to try and get the highest score possible! You will not be provided with the question answers after you finish the quiz, so use your knowledge and resources to find the correct answers. Press the 'Start Quiz' button to begin the quiz, your time will start right away. Good Luck!";
     startQuizEl.appendChild(startPEl);
 
     var startBtnEl = document.createElement("button");
@@ -173,7 +173,7 @@ function beginQuiz() {
 
 // function to start and clear quiz timer
 function timeStart() {
-    timeLeft = 120;
+    timeLeft = 180;
     var timer = setInterval(function () {
         timerEl.textContent = "Time: " + timeLeft;
         timeLeft--;
@@ -296,7 +296,6 @@ function endQuiz() {
     initialsSubmitBtn.textContent = "Submit"
     initialsSectionEl.appendChild(initialsSubmitBtn);
 
-
     initialsSubmitBtn.addEventListener("click", checkInitials);
 }
 
@@ -311,20 +310,19 @@ function checkInitials() {
     }
 }
 
-
-// save score to local storage
+// save high scores to local storage
 function saveScore() {
 
-    // create highscore information object 
+    // create high score information object 
     var highScoreInfo = {
-        "initials": initialsInputEl.value,
+        "initials": initialsInputEl.value.toUpperCase(),
         "finalScore": totalScore
     };
 
-    // add highscore object info to the highscores array
+    // add high score object info to the highscores array
     highScoresArr.push(highScoreInfo);
 
-    // store scores in local storage
+    // store all high scores in local storage
     localStorage.setItem("highscores", JSON.stringify(highScoresArr));
 
     showHighScore();
@@ -387,18 +385,3 @@ function showHighScore() {
 function reloadQuiz() {
     location.reload();
 }
-
-
-
-////////TO-DOS/////////////////
-
-// Make all initials display uppercase even if entered lowercase
-
-// view high scores when click the upper left link
-
-// Final styling:
-// make correct and incorrect change colors or be more noticeable question to question
-// change font sizes of questions
-// make sure semi responsive
-
-// Add README.md

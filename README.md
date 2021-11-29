@@ -21,14 +21,17 @@ The Code Quiz Challenge is a program powered by Javascript that allows users to 
 If you would like to access this project's code, you will need to visit this [GitHub](https://github.com/sm3131/code-quiz) repository.
 
 # Preview
-Below are screenshots of the Code Quiz intro screen, an example question, and the end game screen:
-![Code Quiz](ADD IMAGE LINK)
+Below are screenshots of the Code Quiz start screen, an example question, and the end of quiz screens:
+![Code Quiz Start](./assets/images/quiz-start.png)
+![Code Quiz Question](./assets/images/quiz-question.png)
+![Code Quiz Finish](./assets/images/quiz-finish.png)
+![Code Quiz HighScore](./assets/images/quiz-highscore.png)
 
 # Functionality
 
 The code quiz is set-up as follows:
-- Upon opening the quiz the user will find the intro screen with detailed instruction about how to navigate through the entire quiz.
-- When the user presses the 'start quiz' button the timer will start and the first question will be presented to the user.
+- Upon opening the quiz the user will find the intro screen with detailed instructions about how to navigate through the entire quiz.
+- When the user presses the 'Start Quiz' button the timer will start and the first question will be presented to the user.
 - Every question is multiple choice, so once the user clicks on an answer, they will be provided with feedback to inform them if they answered the question correct or incorrect.
 - The user is then immediately presented with the next question.
 - If a user answers a question correctly they will earn one point, if they answer incorrectly 5 seconds will be removed from their time.
@@ -37,6 +40,11 @@ The code quiz is set-up as follows:
 - After submitting their initials, another screen will appear showing the person's initials with the highest score up to date.
 - The user can then choose to either play again or clear all high scores recorded.
 
+# Link to Code Quiz
+
+Below is a link to access the code quiz program:
+
+
 # Credit
 
-This project was created from scratch using HTML, CSS, and Javascript. All of the code was written by myself, Sammi Moore. I used resources such as [W3Schools](https://www.w3schools.com/), [MDN](https://developer.mozilla.org/en-US/), and [Stack Overflow](https://stackoverflow.com/) in order to find documentation and tips for various coding syntax and functionality. Jason Moore also contributed his time and knowledge to help with the planning and debugging aspects of this project. 
+This project was created from scratch using HTML, CSS, and JavaScript. All of the code was written by myself, Sammi Moore. I used resources such as [W3Schools](https://www.w3schools.com/), [MDN](https://developer.mozilla.org/en-US/), and [Stack Overflow](https://stackoverflow.com/) in order to find documentation and tips for various coding syntax and functionality. Jason Moore also contributed his time and knowledge to help with the planning and debugging aspects of this project. 
